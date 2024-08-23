@@ -1,11 +1,10 @@
-; boot.asm
 [BITS 16]          ; Indicate 16-bit mode
 [ORG 0x7C00]      ; Bootloader loads at memory address 0x7C00
 
 start:
     mov si, msg   ; Load the address of the message
     call print    ; Call the print function
-    jmp $         ; Infinite loop
+    call shutdown  ; Call the shutdown function
 
 print:
     mov ah, 0x0E  ; BIOS teletype function
@@ -18,8 +17,14 @@ print:
 .done:
     ret
 
-msg db 'Hello, World! OS failed to boot because: Not completed!', 0
-printf("Did you know? This OS is 16-bit");
+shutdown:
+    ; Simulate shutdown by halting the CPU
+    cli             ; Clear interrupts
+    hlt             ; Halt the CPU
+    jmp $           ; Infinite loop (if hlt does not work)
+
+msg db 'Hello, World! OS failed to boot because: Not completed!', 0x0A, 0x0D
+    db 'Did you know? This OS is 16-bit', 0x0A, 0x0D, 0
 
 times 510 - ($ - $$) db 0 ; Fill the rest of the sector with zeros
 dw 0xAA55                 ; Boot signature
