@@ -14,6 +14,8 @@ jobs:
     
     - name: Assemble Boot Sector
       run: |
+        apt update
+        apt install nasm -y
         nasm -f bin boot.asm -o boot.bin
         
     - name: Create Release
