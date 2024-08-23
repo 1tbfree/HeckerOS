@@ -39,7 +39,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./boot.bin
-        asset_name: boot.bin
+        asset_name: boot16.bin
         asset_content_type: application/octet-stream  # Ensure this is correct
 
     - name: Upload 32 Bit Boot Sector
