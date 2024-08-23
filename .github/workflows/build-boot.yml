@@ -4,14 +4,15 @@ on:
     branches:
       - main
   workflow_dispatch:
-jobs:
 
+jobs:
   build:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
-    
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
     - name: Assemble Boot Sector
       run: |
         sudo apt update
@@ -24,8 +25,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ github.ref_name }}  # Use ref_name for the tag
+        release_name: Release ${{ github.ref_name }}
         draft: false
         prerelease: false
         
@@ -37,4 +38,4 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./boot.bin
         asset_name: boot.bin
-        asset_content_type: application/octet-stream
+        asset_content_type: application/octet-stream  # Ensure this is correct
