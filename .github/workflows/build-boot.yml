@@ -52,13 +52,3 @@ jobs:
         asset_path: ./boot32.bin
         asset_name: boot32.bin
         asset_content_type: application/octet-stream  # Ensure this is correct
-
-    - name: Upload 64 Bit Boot Sector
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./testboot64.bin
-        asset_name: test-boot64.bin
-        asset_content_type: application/octet-stream  # Ensure this is correct
