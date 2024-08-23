@@ -25,6 +25,7 @@ shutdown:
 
 msg db 'Hello, World! OS failed to boot because: Not completed!', 0x0A, 0x0D
     db 'Did you know? This OS is 16-bit', 0x0A, 0x0D, 0
+printf("Now precompiled!!!")
 
 times 510 - ($ - $$) db 0 ; Fill the rest of the sector with zeros
 dw 0xAA55                 ; Boot signature
