@@ -19,6 +19,7 @@ print:
     ret
 
 msg db 'Hello, World! OS failed to boot because: Not completed!', 0
+printf("Did you know? This OS is 16-bit");
 
 times 510 - ($ - $$) db 0 ; Fill the rest of the sector with zeros
 dw 0xAA55                 ; Boot signature
