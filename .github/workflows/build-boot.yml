@@ -18,7 +18,9 @@ jobs:
       run: |
         sudo apt update
         sudo apt install nasm -y
-        nasm -f bin boot.asm -o boot.bin
+        nasm -f bin boot16.asm -o boot16.bin
+        nasm -f bin boot32.asm -o boot32.bin
+        nasm -f bin testboot64.asm -o testboot64.bin
         
     - name: Create Release
       id: create_release
@@ -31,7 +33,7 @@ jobs:
         draft: false
         prerelease: false
         
-    - name: Upload Boot Sector
+    - name: Upload 16 Bit Boot Sector
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,4 +41,24 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ./boot.bin
         asset_name: boot.bin
+        asset_content_type: application/octet-stream  # Ensure this is correct
+
+    - name: Upload 32 Bit Boot Sector
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./boot32.bin
+        asset_name: boot32.bin
+        asset_content_type: application/octet-stream  # Ensure this is correct
+
+    - name: Upload 64 Bit Boot Sector
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./testboot64.bin
+        asset_name: test-boot64.bin
         asset_content_type: application/octet-stream  # Ensure this is correct
